@@ -281,7 +281,7 @@ mkdir /arch-root/android
 
 /sbin/busybox chroot arch-root /etc/init.stage2 &
 
-exec /sbin/busybox chroot . /init &> /dev/kmsg
+exec /init &> /dev/kmsg
 ```
 As you can see I have the problem that I must use pivot_root to basically switch the `/` with the virtual original ramfs tmpfs partition. And therefore loose my linux partition.
 To still be able to access the basic tools I copy a busybox installed in my arch-partition to the original ramfs.
