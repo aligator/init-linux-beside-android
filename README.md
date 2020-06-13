@@ -330,14 +330,16 @@ After that I do some basic setups and finally use run-parts to start my services
 
 # Conclusion
 It was not very easy to find information about this. The articles I linked seem to not work fully with Android 9.
-But finally it works.
+That's why I decided to provide my own foundings about this matter.
+
+Summary:
 * I can ssh into the arch linux.
 * It runs always, no matter which app is open. __But__ if the screen is turned off android slows down the kernel. So to keep it running at full speed I use the coffeine function my rom includes, which just keeps the screen on.
 * I can access the android filesystem as it's mounted to `/android`.
 * I even can chroot into it, but its very limited. The PATH is somehow srewed up and so on. But something like 'chroot /android /system/bin/reboot' to reboot works just fine.
 * I can access the linux root-fs from android and modify files if ssh refused to start.
 
-I am not sure if this has realy a benefit over just starting a normal chroot, but it makes fun hacking with the initrams.
+I am not sure if this has really a benefit over just starting a normal chroot, but it makes fun hacking with the initrams.
 
 At the end it would be better if I would not need the pivot_root to get android running, because then I would start my linux without chroot. So if anyone has a hint about it...
 
