@@ -1,14 +1,14 @@
 # Introduction
 It is very easy to run a linux envireonment inside chroot or even without root using proot. There are some apps out there to help you doing this:
-https://github.com/meefik/linuxdeploy
-https://github.com/CypherpunkArmory/UserLAnd
+* https://github.com/meefik/linuxdeploy
+* https://github.com/CypherpunkArmory/UserLAnd
 
 But I wanted to know if it is possible to run a linux environment _beside_ android.
 
 There are some articles already covering that:
-http://whiteboard.ping.se/Android/Debian
-https://jsteward.moe/replace-android-init-with-test-script.html
-https://yhcting.wordpress.com/2011/05/31/android-creating-minimum-set-of-android-kernel-adbd-ueventd-for-android-kernel-test/
+* http://whiteboard.ping.se/Android/Debian
+* https://jsteward.moe/replace-android-init-with-test-script.html
+* https://yhcting.wordpress.com/2011/05/31/android-creating-minimum-set-of-android-kernel-adbd-ueventd-for-android-kernel-test/
 
 However I had to change some steps to be successful on Android 9.
 
