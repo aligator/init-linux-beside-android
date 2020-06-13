@@ -1,0 +1,52 @@
+#!/sbin/busybox sh
+
+earlyLog() {
+    echo new_era: $@ > /dev/kmsg
+}
+
+log() {
+    echo $@ >> /mnt/root/init.log
+}
+
+# set up psuedo-filesystems
+/sbin/busybox mount -t proc proc /proc
+/sbin/busybox mount -t sysfs sysfs /sys
+
+/sbin/busybox sleep 1
+
+/sbin/busybox mdev -s
+
+/sbin/busybox mkdir /dev/block
+
+earlyLog create sdcard devices
+/sbin/busybox mknod /dev/block/mmcblk1 b 179 64 &> /dev/kmsg
+/sbin/busybox mknod /dev/block/mmcblk1p1 b 179 65 &> /dev/kmsg
+earlyLog pseudo filesystem setup finished
+
+earlyLog mount sd card
+/sbin/busybox mkdir /mnt/root
+/sbin/busybox mount -t ext4 -o noatime,nodiratime,errors=panic /dev/block/mmcblk1p1 /mnt/root &> /dev/kmsg
+
+/sbin/busybox sleep 1
+
+
+echo start log > /mnt/root/init.log
+log _________
+
+earlyLog copy initramfs
+log copy initramfs
+/sbin/busybox mount -t tmpfs -o size=10m tmpfs /mnt/root/android &> /dev/kmsg
+/sbin/busybox cp original-ramdisk.tar.gz /mnt/root/android &> /dev/kmsg
+cd /mnt/root/android/
+/sbin/busybox tar -xzf original-ramdisk.tar.gz &> /dev/kmsg
+cd /
+earlyLog copied
+
+log cleanup and transfere root
+/sbin/busybox umount /proc
+/sbin/busybox umount /sys
+
+/sbin/busybox sync
+
+earlyLog switch root
+exec /sbin/busybox switch_root /mnt/root /etc/init
