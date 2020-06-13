@@ -1,0 +1,27 @@
+#!/bin/bash
+export PATH=/sbin:/usr/sbin:/bin:/usr/bin
+
+echo "`date` init stage 2 started - waiting for android" >> /stage2.log
+
+while [ ! -e /android/dev/.coldboot_done ]; do
+	/sbin/busybox sleep 1
+done
+
+while [ -e /android/dev/.booting ]; do
+	/sbin/busybox sleep 1
+done
+
+echo setup pseudo file systems >> /stage2.log
+mount -o rbind /android/dev /dev
+mount -t proc none /proc &>> /stage2.log
+mount -t sysfs none /sys &>> /stage2.log
+
+rm -R /tmp/*
+mount -t tmpfs -o size=2G tmpfs /tmp &>> /stage2.log
+
+sudo chmod 666 /dev/null
+
+echo start services >> /stage2.log
+run-parts /etc/init.d --arg=start &> /services.log
+
+exit 0

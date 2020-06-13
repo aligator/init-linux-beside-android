@@ -1,0 +1,15 @@
+#!/bin/bash
+
+case "$1" in
+	start)
+		/usr/bin/sshd
+		;;
+	stop)
+		echo "stop not implemented"
+		;;
+	*)
+		echo $"Usage: $0 {start|stop}"
+		exit 1
+esac
+
+exit 0

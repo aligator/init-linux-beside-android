@@ -1,0 +1,19 @@
+#!/bin/bash
+
+# Leave all the initialization process to the Android init to handle
+echo running init > /stage2.log
+
+sync
+cp /usr/bin/busybox /android/sbin/
+cd /android
+mkdir arch-root
+
+echo patch init to remount the whole android into the arch-chroot >> /stage2.log
+sed -i '/^on boot$/a \ \ \ \ mount none / /arch-root/android bind rec' init.rc
+
+pivot_root . arch-root &> /dev/kmsg
+mkdir /arch-root/android
+
+/sbin/busybox chroot arch-root /etc/init.stage2 &
+
+exec /sbin/busybox chroot . /init &> /dev/kmsg
