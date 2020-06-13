@@ -340,3 +340,6 @@ But finally it works.
 I am not sure if this has realy a benefit over just starting a normal chroot, but it makes fun hacking with the initrams.
 
 At the end it would be better if I would not need the pivot_root to get android running, because then I would start my linux without chroot. So if anyone has a hint about it...
+
+# Tested devices
+Moto G4
